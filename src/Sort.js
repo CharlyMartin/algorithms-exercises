@@ -4,18 +4,31 @@ import { App, snapshot, done, clear } from "./sort-visualizer";
 
 import "./sort.css";
 
-function sort(array) {
-  // do cool stuff here
+function sort(nums) {
+  let swapped = false;
 
-  // call snapshot any time you do anything to the array
-  // it's okay if you call it with duplicate value array,
-  // it will deduplicate for you
-  snapshot(array);
+  do {
+    swapped = false;
+
+    for (let index = 1; index < nums.length; index++) {
+      const a = nums[index - 1];
+      const b = nums[index];
+
+      if (a > b) {
+        nums[index] = a;
+        nums[index - 1] = b;
+        swapped = true;
+      }
+    }
+    snapshot(nums);
+  } while (swapped);
+
+  return nums;
 }
 
 export default function SortComponent() {
   clear();
-  sort(shuffle(range(10)));
+  sort(shuffle(range(32)));
   done();
   return <App />;
 }
